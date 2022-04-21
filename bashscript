@@ -1,0 +1,61 @@
+#!/bin/bash
+
+echo -e "\n NumberJack \n" #print out game name
+ch=0
+while [ $ch != 3 ]; #while variable ch is not equal to 3 while loop continues
+do
+    echo "
+	Play : Hit 1 and enter. 
+	Help : Hit 2 and enter.
+	Exit : Hit 3 and enter.
+	"
+	#above block is printed out
+
+read -p "Enter your choice : " ch #get input to store in variable ch from user
+if [ $ch -eq 1 ];then #if ch == 1 this if statement
+	x=0
+	c=0
+	p=0
+	read -p "Enter any number between 0 and 9: " n
+	while [ $c -eq 0 ];
+	do
+    		x=11
+    		r=($(shuf -i 0-9 -n 10)) #shuffles numbers 0-9 in a list/array
+    		echo "${r[@]} "
+
+    		for i in {1..10};
+      			do
+				a[$i]=$i
+      		done #end of for loop
+    		echo "${a[@]} "
+    
+		read -t 5 -p "enter the index of your number: " x
+	    if [[ $? -gt 128 ]]; then
+		c=1
+		break
+    	    fi #end of inner if statement
+    
+     if [ ${r[$(($x))-1]} -eq $n ];then #if location matches answer
+	echo "great"
+	((p=p+1)) #score is score + 1
+    else
+	c=1 #else c =1 which is game over value
+	break
+    fi #end of if statement
+  done #end of inner while loop
+
+
+
+	elif [ $ch -eq 2 ];then #if ch == 2 this if block executes
+		echo "Help: Instructions to play the game."
+  	else
+	break #break out of current loop iteration to start next one
+fi #end of if statement
+
+
+
+if [ $c -eq 1 ];then #if c == 1 due to running out of time or wrong guess game over
+	echo -e "\nGame Over\n"
+	echo "You scored $p points"
+fi #end of if
+done #end of main while loop
