@@ -1,0 +1,12 @@
+FROM alpine:latest
+
+RUN apk update
+
+RUN mkdir file
+
+COPY os_info file/os_info
+WORKDIR file
+
+RUN chmod +x os_info
+
+ENTRYPOINT ["bash", "os_info"]
