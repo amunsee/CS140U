@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "hi from script"
+sudo touch os_info_log
+sudo cat /etc/os-release > os_info_log
